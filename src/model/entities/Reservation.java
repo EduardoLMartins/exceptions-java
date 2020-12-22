@@ -34,12 +34,20 @@ public class Reservation {
 	   return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 	}
 	
-	public void updateDates(Date checkIn, Date checkOut) {
-
+	public String updateDates(Date checkIn, Date checkOut) {
+		
+		
+		Date now = new Date();
+		if(checkIn.before(now) || checkOut.before(now)) {
+			return "Error in reservation: Reservation dates  for uptade must be future";
+		}
+		 if(!checkOut.after(checkIn)) {	
+			return "Error  in reservation : Check-Out  date must  be after  check-in date";
+		 }
 		this.checkIn = checkIn;
 		this.checkOut = checkOut;
-		
-}
+		return null;
+     }
 	@Override
 	public String toString() {
 		return "Romm "
